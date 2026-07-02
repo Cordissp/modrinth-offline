@@ -124,7 +124,7 @@ pub async fn login_offline(
     exec: impl sqlx::Executor<'_, Database = sqlx::Sqlite> + Copy,
 ) -> crate::Result<Credentials> {
     let id = uuid::Uuid::new_v3(
-        &uuid::Uuid::NIL,
+        &uuid::Uuid::nil(),
         format!("OfflinePlayer:{}", username).as_bytes(),
     );
 
