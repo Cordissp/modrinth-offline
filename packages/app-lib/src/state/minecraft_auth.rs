@@ -358,6 +358,10 @@ impl Credentials {
         &self,
         cache_intent: OnlineProfileCacheIntent,
     ) -> Option<Arc<MinecraftProfile>> {
+        if self.access_token.is_empty() {
+            return Some(Arc::new(self.offline_profile.clone()));
+        }
+
         let max_age = cache_intent.max_age();
         let stale_profile = {
             let mut profile_cache = PROFILE_CACHE.lock().await;
