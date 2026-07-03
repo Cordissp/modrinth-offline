@@ -132,6 +132,14 @@ pub async fn login_offline(
         offline_profile: MinecraftProfile {
             id,
             name: username.to_string(),
+            skins: vec![MinecraftSkin {
+                id: uuid::Uuid::nil(),
+                state: MinecraftCharacterExpressionState::Active,
+                url: std::sync::Arc::new("http://assets.mojang.com/SkinTemplates/steve.png".parse().unwrap()),
+                texture_key: None,
+                variant: MinecraftSkinVariant::Classic,
+                name: Some("Offline Skin".to_string()),
+            }],
             ..MinecraftProfile::default()
         },
         access_token: "".to_string(),
