@@ -45,18 +45,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [
-            macos-latest,
-            windows-latest,
-            ubuntu-latest,
-          ]
+        platform: [windows-latest]
         include:
-          - platform: macos-latest
-            artifact-target-name: universal-apple-darwin
           - platform: windows-latest
             artifact-target-name: x86_64-pc-windows-msvc
-          - platform: ubuntu-latest
-            artifact-target-name: x86_64-unknown-linux-gnu
 
     runs-on: ${{ matrix.platform }}
 
@@ -139,14 +131,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-
-      - name: Build macOS app
-        run: pnpm --filter=@modrinth/app run tauri build --target universal-apple-darwin --config tauri-release.conf.json
-        if: contains(matrix.platform, 'macos')
-
-      - name: Build Linux app
-        run: pnpm --filter=@modrinth/app run tauri build --config tauri-release.conf.json
-        if: contains(matrix.platform, 'ubuntu')
 
       - name: Build Windows app
         run: pnpm --filter=@modrinth/app run tauri build --config tauri-release.conf.json --verbose --bundles "nsis"
